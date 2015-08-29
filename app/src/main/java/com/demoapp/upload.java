@@ -309,8 +309,8 @@ public class upload extends Activity {
                 filetype="directory";
                 // flLst.add(tf.getName());
                 int count = StringUtils.countMatches(tf.getAbsolutePath(), "/");
-                Toast.makeText(getApplicationContext(), "/ count=" + count,
-                        Toast.LENGTH_LONG).show();
+               /* Toast.makeText(getApplicationContext(), "/ count=" + count,
+                        Toast.LENGTH_LONG).show();*/
                 if(count< (dircount+4))populatefilelist(tf.getAbsolutePath());
             }
             else  filetype="file";
