@@ -101,7 +101,10 @@ public class upload extends Activity {
                 Settings.Secure.ANDROID_ID);
         Intent intent = getIntent();
         uploadtype =  intent.getStringExtra("uploadtype");
+
         uploadtype=uploadtype.valueOf(uploadtype);
+
+
        /* Toast.makeText(getApplicationContext(), "image clicked "+uploadtype,
          Toast.LENGTH_LONG).show();*/
         Button playButton = (Button) findViewById(R.id.imgcancelbtn);
@@ -136,9 +139,9 @@ public class upload extends Activity {
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+                //ImageItem item = (ImageItem) parent.getItemAtPosition(position);
 
-                Toast.makeText(getApplicationContext(), "image clicked "+item.getTitle(),
+                Toast.makeText(getApplicationContext(), "image clicked ",
                  Toast.LENGTH_LONG).show();
                 //decodeFile(item.getTitle());
 
@@ -336,22 +339,6 @@ public class upload extends Activity {
                     fnamelLst.add(tf.getName());
 
 
-                    if(tf.getName().contains(".mp4")||tf.getName().contains(".MP4")){
-                        bitmap = ThumbnailUtils.createVideoThumbnail(tf.getAbsolutePath(),
-                                MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-
-                        resultIAV.add(new ImageItem(bitmap,  tf.getAbsolutePath()));
-
-
-                    }
-                    else{
-
-                        // Bitmap bitmap ;
-                        bitmap = BitmapFactory.decodeFile(tf.getAbsolutePath());
-                        resultIAV.add(new ImageItem(bitmap,  tf.getAbsolutePath()));
-
-                    }
-
 
 
                 }
@@ -362,7 +349,7 @@ public class upload extends Activity {
     }
 
 
-    public ArrayList<ImageItem> getFilePaths()
+    public List<String> getFilePaths()
     {
 
 
@@ -401,21 +388,6 @@ public class upload extends Activity {
                         fnamelLst.add(f.getName());
 
 
-                        if(f.getName().contains(".mp4")||f.getName().contains(".MP4")){
-                            bitmap = ThumbnailUtils.createVideoThumbnail(f.getAbsolutePath(),
-                                    MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-
-                            resultIAV.add(new ImageItem(bitmap,  f.getAbsolutePath()));
-
-
-                        }
-                        else{
-
-                           // Bitmap bitmap ;
-                            bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
-                            resultIAV.add(new ImageItem(bitmap,  f.getAbsolutePath()));
-
-                        }
 
 
 
@@ -427,7 +399,7 @@ public class upload extends Activity {
         }
 
 
-        return resultIAV;
+        return flLst;
 
 
     }

@@ -2,6 +2,10 @@ package com.demoapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by KTA-PC 21 on 7/15/2015.
@@ -18,13 +23,20 @@ public class GridViewAdapter extends ArrayAdapter {
     private Context context;
     private int layoutResourceId;
     private ArrayList data = new ArrayList();
+    private List<String> fLst;
+    private String url;
+    private ImageView image;
 
-    public GridViewAdapter(Context context, int layoutResourceId, ArrayList data) {
+    public GridViewAdapter(Context context, int layoutResourceId, List<String> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
-        this.data = data;
+        this.fLst = data;
+        //this.data = data;
     }
+
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -43,19 +55,54 @@ public class GridViewAdapter extends ArrayAdapter {
             holder = (ViewHolder) row.getTag();
         }
 
-        ImageItem item = (ImageItem) data.get(position);
-        holder.imageTitle.setText(item.getTitle());
-        holder.image.setImageBitmap(item.getImage());
-        if(item.getTitle().contains(".mp4")||item.getTitle().contains(".MP4")){
-            holder.picon.setVisibility(View.INVISIBLE);
+        //ImageItem item = (ImageItem) data.get(position);
+        String fileName = fLst.get(position);
+        holder.imageTitle.setText(fileName);
+        Bitmap bitmap ;
+       // holder.image.setImageBitmap(item.getImage());
+        if(fileName.contains(".mp4") || fileName.contains(".MP4")) {
+            holder.picon.setVisibility(View.VISIBLE);
+            /*bitmap = ThumbnailUtils.createVideoThumbnail(fileName,
+                    MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+            holder.image.setImageBitmap(bitmap);*/
+            vloadImage(fileName, holder.image);
 
         }
         else {
-            holder.picon.setVisibility(View.VISIBLE);
+            holder.picon.setVisibility(View.INVISIBLE);
+
+            //bitmap = BitmapFactory.decodeFile(fileName);
+            loadImage(fileName, holder.image);
+
+
+           // holder.image.setImageURI(Uri.parse(fileName));
 
         }
         return row;
+
     }
+
+    public void loadImage(final String url, final ImageView image) {
+        //super(url, image);
+        // load an image (maybe do this using an AsyncTask
+        // if you're loading from network
+        image.setImageURI(Uri.parse(url));
+
+
+    }
+    public void vloadImage(final String url, final ImageView image) {
+        //super(url, image);
+        // load an image (maybe do this using an AsyncTask
+        // if you're loading from network
+        Bitmap bitmap;
+        bitmap = ThumbnailUtils.createVideoThumbnail(url,
+                MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+        image.setImageBitmap(bitmap);
+
+
+    }
+
+
 
     static class ViewHolder {
         TextView imageTitle;
