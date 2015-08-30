@@ -140,8 +140,11 @@ public class upload extends Activity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+                //ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+                String prompt = (String)parent.getItemAtPosition(position);
 
-                Toast.makeText(getApplicationContext(), "image clicked ",
+
+                Toast.makeText(getApplicationContext(), "image clicked "+prompt,
                  Toast.LENGTH_LONG).show();
                 //decodeFile(item.getTitle());
 

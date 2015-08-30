@@ -30,6 +30,7 @@
         android:layout_height="150dp"
         android:src="@drawable/play"
         android:visibility="invisible"
+        android:adjustViewBounds="true"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         />

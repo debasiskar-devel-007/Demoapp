@@ -3,8 +3,8 @@ package com.demoapp;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +86,9 @@ public class GridViewAdapter extends ArrayAdapter {
         //super(url, image);
         // load an image (maybe do this using an AsyncTask
         // if you're loading from network
-        image.setImageURI(Uri.parse(url));
+        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(url), 150, 150);
+        //image.setImageURI(Uri.parse(url));
+        image.setImageBitmap(ThumbImage);
 
 
     }
@@ -96,7 +98,7 @@ public class GridViewAdapter extends ArrayAdapter {
         // if you're loading from network
         Bitmap bitmap;
         bitmap = ThumbnailUtils.createVideoThumbnail(url,
-                MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                MediaStore.Video.Thumbnails.MINI_KIND);
         image.setImageBitmap(bitmap);
 
 
