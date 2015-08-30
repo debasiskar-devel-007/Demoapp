@@ -71,6 +71,7 @@ public class upload extends Activity {
 
     private ListView mListView;
     private List<String> fileNameList;
+    private List<Long> filecreatdtimelist;
     private MainActivity.FlAdapter mAdapter;
     private File file;
     private File tfile;
@@ -317,7 +318,7 @@ public class upload extends Activity {
                 int count = StringUtils.countMatches(tf.getAbsolutePath(), "/");
                /* Toast.makeText(getApplicationContext(), "/ count=" + count,
                         Toast.LENGTH_LONG).show();*/
-                if(count< (dircount+4))populatefilelist(tf.getAbsolutePath());
+                if(count< (dircount+6))populatefilelist(tf.getAbsolutePath());
             }
             else  filetype="file";
         /*Toast.makeText(getApplicationContext(),"filename="+ tf.getName()+"filetype="+filetype+"getabspath="+tf.getAbsolutePath(),
@@ -337,8 +338,12 @@ public class upload extends Activity {
                     ){
 
 
+                Toast.makeText(getApplicationContext(), "/ createdtime=" + tf.lastModified(),
+                        Toast.LENGTH_LONG).show();
+
                 if(!Arrays.asList(fnamelLst).contains(tf.getName())){
                     flLst.add(tf.getAbsolutePath());
+                    //filecreatdtimelist.add(tf.lastModified());
                     fnamelLst.add(tf.getName());
 
 
