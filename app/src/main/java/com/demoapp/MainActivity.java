@@ -102,6 +102,12 @@ public  class MainActivity extends Activity implements OnItemLongClickListener {
 
         startActivity(intent);
     }
+public void opencontactlist(View view) {
+        Intent intent = new Intent(this, contact.class);
+
+
+        startActivity(intent);
+    }
 
 
 public void populatefilelist(String fpath){
