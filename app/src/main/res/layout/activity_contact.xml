@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:onClick="showcontacts"
         android:text="Start Importing"
-        android:layout_alignParentLeft="true"
+        android:id="@+id/startimport"
+        android:layout_centerInParent="true"
 
         />
 
