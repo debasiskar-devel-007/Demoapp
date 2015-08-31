@@ -1,8 +1,10 @@
 package com.demoapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -30,6 +33,7 @@ public class contact extends Activity {
     private ListView contactlist;
     private ContactAdapter contactadapter;
     ArrayList<ContactItem> contacts = new ArrayList<>();
+    private ProgressDialog dialog;
 
 
     @Override
@@ -41,8 +45,19 @@ public class contact extends Activity {
 
 
         //fileNameList = getFileListfromSDCard();
-        contactadapter = new ContactAdapter(this, R.layout.contact_list_item, readContacts());
-        contactlist.setAdapter(contactadapter);
+
+    }
+
+    public void showcontacts(View view) {
+
+
+        readContacts();
+        dialog = ProgressDialog.show(contact.this,
+                "Import is in progress ..", "Please wait...", true);
+
+        //contactadapter = new ContactAdapter(this, R.layout.contact_list_item, readContacts());
+        //contactlist.setAdapter(contactadapter);
+
     }
 
     public  ArrayList<ContactItem>  readContacts() {
@@ -102,6 +117,20 @@ public class contact extends Activity {
 
 
         }
+
+        try {
+            if (dialog.isShowing())
+                dialog.dismiss();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            Log.e(e.getClass().getName(), e.getMessage(), e);
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+
+        startActivity(intent);
 
         return contacts;
     }
